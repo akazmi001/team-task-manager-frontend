@@ -23,7 +23,7 @@ export default function Login() {
       localStorage.setItem("access", data.access);
       localStorage.setItem("refresh", data.refresh);
       localStorage.setItem("role", data.role);
-      login(data.access);
+      login(data.role);
       router.push("/dashboard");
       alert("login successfull");
     } catch (err) {

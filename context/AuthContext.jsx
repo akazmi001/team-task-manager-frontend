@@ -7,15 +7,15 @@ export default function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
 
   useEffect(() => {
-    const access = localStorage.getItem("access");
-    if (access) {
-      setUser({ access });
+    const role = localStorage.getItem("role");
+    if (role) {
+      setUser(role);
     }
   }, []);
 
-  const login = (token) => {
-    localStorage.setItem("token", token);
-    setUser({ token });
+  const login = (role) => {
+    localStorage.setItem("role", role);
+    setUser(role);
   };
 
   const logout = () => {

@@ -1,6 +1,6 @@
 "use client";
 import Link from "next/link";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { AuthContext } from "../context/AuthContext";
 import { useRouter } from "next/navigation";
 import { usePathname } from "next/navigation";
@@ -15,12 +15,14 @@ export default function Navbar() {
     router.push("/login");
   };
 
-  const navLinks = [
-    { href: "/dashboard", label: "Dashboard" },
-    { href: "/projects", label: "Projects" },
-    { href: "/tasks", label: "Tasks" },
-  ];
+  // useEffect(() => {},[])
 
+  const navLinks = [
+  { href: "/dashboard", label: "Dashboard" },
+    ...(user?.toLowerCase() === "admin"
+      ? [{ href: "/projects", label: "Projects" }]
+      : [{ href: "/tasks", label: "Tasks" }]),
+  ];
   const NavLink = ({ href, label }) => (
     <Link
       href={href}

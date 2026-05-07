@@ -19,20 +19,18 @@ export default function Projects() {
 
   const fetchProjects = async () => {
     const resp = await getProjectApi();
-
-    console.log(resp);
     setProjects(resp);
   }
 
    const handleSubmit = async (e) => {
-      e.preventDefault();
+     e.preventDefault();
+     let data = null;
       try {
-        const data = await createProject(form);
-        const resp = await getProjectApi();
-        setProjects(resp);
-        alert("Project Created successfully.");
+        data = await createProject(form);
+        fetchProjects()
+        alert("Project Created successfully!");
       } catch (err) {
-        alert("Some Error Occured! Try again.");
+        alert("you are not admin!")
       }
     };
 
