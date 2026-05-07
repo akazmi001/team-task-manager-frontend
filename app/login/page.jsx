@@ -6,7 +6,7 @@ import { loginApi } from "../../lib/api";
 import Link from "next/link";
 
 export default function Login() {
-  const [form, setForm] = useState({ email: "", password: "" });
+  const [form, setForm] = useState({ username: "", password: "" });
   const [showPassword, setShowPassword] = useState(false);
   const { login } = useContext(AuthContext);
   const router = useRouter();
@@ -64,12 +64,12 @@ export default function Login() {
 
             {/* Email */}
             <div className="space-y-1.5">
-              <label className="text-zinc-400 text-xs font-medium">Email</label>
+              <label className="text-zinc-400 text-xs font-medium">Username</label>
               <input
-                type="email"
-                placeholder="you@example.com"
+                type="input"
+                placeholder="Username"
                 className={inputClass}
-                onChange={(e) => setForm({ ...form, email: e.target.value })}
+                onChange={(e) => setForm({ ...form, username: e.target.value })}
               />
             </div>
 
