@@ -155,7 +155,7 @@ function TaskAccordion({ task, onEdit, projectId }) {
       const res = await fetch(BASE_URL + `projects/api/${projectId}/tasks/${task.id}/`, {
         method: 'PATCH',
         headers: getHeader(),
-        body: JSON.stringify({ asigned_to_id: newId }),
+        body: JSON.stringify({ assigned_to_id: newId }),
       })
       if (!res.ok) throw new Error()
     } catch {
