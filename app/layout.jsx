@@ -1,14 +1,17 @@
 import "./globals.css";
 import AuthProvider from "../context/AuthContext";
 import Navbar from "../components/Navbar";
+import { Toaster } from "../components/ui/sonner";
+
 
 export default function RootLayout({ children }) {
   return (
-    <html>
+    <html lang="en">
       <body>
         <AuthProvider>
           <Navbar />
           {children}
+          <Toaster />
         </AuthProvider>
       </body>
     </html>

@@ -4,6 +4,7 @@ import { AuthContext } from "../../context/AuthContext";
 import { useRouter } from "next/navigation";
 import { loginApi } from "../../lib/api";
 import Link from "next/link";
+import { toast } from "sonner";
 
 export default function Login() {
   const [form, setForm] = useState({ username: "", password: "" });
@@ -25,9 +26,9 @@ export default function Login() {
       localStorage.setItem("role", data.role);
       login(data.role);
       router.push("/dashboard");
-      alert("login successfull");
+      toast.info("Login successfull");
     } catch (err) {
-      alert("Login failed");
+      toast.error("Login failed");
     }
   };
 

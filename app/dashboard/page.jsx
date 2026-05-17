@@ -1,16 +1,22 @@
 "use client";
 import { useEffect, useState } from "react";
+import { getDashboardData } from "../../lib/api";
+import { toast } from "sonner";
 
 export default function Dashboard() {
-  const [data, setData] = useState({
-    total: 0,
-    completed: 0,
-    pending: 0,
-    overdue: 0,
-  });
+  const [data, setData] = useState({});
 
   useEffect(() => {
-    // your data fetching here
+    const getDashboard = async () => {
+      try {
+        const response = await getDashboardData();
+        console.log(response);
+        setData(response);
+      } catch (error) {
+        toast.error("Some error occured!")
+      }
+    }
+    getDashboard()
   }, []);
 
   const cards = [
@@ -55,6 +61,35 @@ export default function Dashboard() {
     },
   ];
 
+  const role = localStorage.getItem("role");
+
+  if (role == "admin") {
+    cards.push(
+      {
+        label: "Tasks Created",
+        value: data.task_created,
+        color: "text-sky-600",
+        icon: (
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
+            <circle cx="12" cy="12" r="10" /><path d="M12 8v4M12 16h.01" />
+          </svg>
+        ),
+      }
+    )
+    cards.push(
+      {
+        label: "Projects Created",
+        value: data.projects_created,
+        color: "text-sky-600",
+        icon: (
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
+            <circle cx="12" cy="12" r="10" /><path d="M12 8v4M12 16h.01" />
+          </svg>
+        ),
+      }
+    )
+  }
+
   return (
     <div className="min-h-screen bg-zinc-950 px-6 py-16">
       <div className="max-w-2xl mx-auto space-y-8">
@@ -67,9 +102,9 @@ export default function Dashboard() {
 
         {/* Cards */}
         <div className="grid grid-cols-2 gap-3">
-          {cards.map(({ label, value, color = "text-white", icon }) => (
+          {cards.map(({ label, value, color = "text-white", icon }, index) => (
             <div
-              key={label}
+              key={index}
               className="bg-zinc-900 border border-white/[0.06] rounded-2xl p-5 flex flex-col gap-4"
             >
               <div className="flex items-center justify-between">
