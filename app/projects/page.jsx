@@ -1,6 +1,6 @@
 "use client";
 import { useState, useEffect } from "react";
-import { createProject, getProjectApi } from "../../lib/api";
+import { createProject, getProjectApi, deleteProject } from "../../lib/api";
 import { Accordion } from "../../components/Accordian";
 import { toast } from "sonner";
 
@@ -81,8 +81,8 @@ export default function Projects() {
     {projects.length > 0 && (
       <div className="space-y-3">
         <h3 className="text-xs font-semibold uppercase tracking-widest text-zinc-500">Projects</h3>
-        {projects.map((p) => (
-          <Accordion key={p.id} project={p} />
+          {projects.map((p) => (
+            <Accordion key={p.id} project={p} deleteFn={ deleteProject } />
         ))}
       </div>
     )}
