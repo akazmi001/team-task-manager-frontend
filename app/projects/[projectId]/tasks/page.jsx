@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react'
 import { useParams } from 'next/navigation'
 import { createTask, getTasks, updateTask, getHeader } from '../../../../lib/api'
+import { toast } from 'sonner'
 
 const STATUS_COLORS = {
   todo: 'bg-zinc-700 text-zinc-300',
@@ -30,7 +31,7 @@ function EditModal({ task, onClose, onSave }) {
       await onSave(task.id, form)
       onClose()
     } catch {
-      alert('You are not admin!')
+      toast.warning('You are not admin!')
     }
   }
 
@@ -159,7 +160,7 @@ function TaskAccordion({ task, onEdit, projectId }) {
       })
       if (!res.ok) throw new Error()
     } catch {
-      alert('Failed to assign task.')
+      toast.error('Failed to assign task.')
       setAssignedId(task.asigned_to?.id ?? null)
     } finally {
       setAssigning(false)
@@ -275,9 +276,9 @@ export default function TasksPage() {
       await createTask(form, projectId)
       fetchTasks()
       setForm({ title: '', description: '', status: 'todo', due_date: '' })
-      alert('Task Created.')
+      toast.success('Task Created.')
     } catch {
-      alert('You are not admin')
+      toast.warning('You are not admin')
     }
   }
 

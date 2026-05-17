@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import { getHeader } from '../../lib/api'
+import { toast } from 'sonner'
 
 const STATUS_COLORS = {
   todo: 'bg-zinc-700 text-zinc-300',
@@ -38,7 +39,7 @@ function TaskCard({ task, onUpdated }) {
       onUpdated(task.id, newStatus)
     } catch {
       setStatus(prev)
-      alert('Failed to update status.')
+      toast.error('Failed to update status.')
     } finally {
       setSaving(false)
     }
@@ -110,7 +111,7 @@ export default function MyTasksPage() {
     })
       .then((r) => r.json())
       .then(setTasks)
-      .catch(() => alert('Failed to load tasks.'))
+      .catch(() => toast.error('Failed to load tasks.'))
       .finally(() => setLoading(false))
   }, [])
 

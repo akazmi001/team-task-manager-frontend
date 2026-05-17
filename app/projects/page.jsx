@@ -2,6 +2,7 @@
 import { useState, useEffect } from "react";
 import { createProject, getProjectApi } from "../../lib/api";
 import { Accordion } from "../../components/Accordian";
+import { toast } from "sonner";
 
 export default function Projects() {
   const [projects, setProjects] = useState([]);
@@ -28,9 +29,9 @@ export default function Projects() {
       try {
         data = await createProject(form);
         fetchProjects()
-        alert("Project Created successfully!");
+        toast.success("Project Created successfully!");
       } catch (err) {
-        alert("you are not admin!")
+        toast.error("you are not admin!")
       }
     };
 

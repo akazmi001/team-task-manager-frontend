@@ -3,6 +3,7 @@ import { register } from "../../lib/api";
 import { useRouter } from "next/navigation";
 import { useState, useContext } from "react";
 import { AuthContext } from "../../context/AuthContext";
+import { toast } from "sonner";
 
 export default function Signup() {
   const router = useRouter();
@@ -27,9 +28,9 @@ export default function Signup() {
       localStorage.setItem("role", data.role);
       login(data.access);
       router.push("/dashboard");
-      alert("Signup successful!");
+      toast.success("Signup successful!");
     } catch (err) {
-      alert("Signup failed");
+      toast.error("Signup failed");
     }
   };
 
